@@ -1,0 +1,149 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║              PC PHONE - SUPABASE DATABASE SETUP INSTRUCTIONS                 ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📋 YOUR SUPABASE PROJECT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+URL:  https://zvermhsaarqxfpatwqed.supabase.co
+Key:  sb_publishable_YJ-5VnC0x-rhS2GJ011QDg_BtGRYeaa
+
+
+🚀 QUICK SETUP (5 MINUTES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Open Supabase SQL Editor
+  ✓ Go to: https://zvermhsaarqxfpatwqed.supabase.co
+  ✓ Login if prompted
+  ✓ Click "SQL Editor" in left sidebar
+  ✓ Click "New Query"
+
+STEP 2: Copy & Paste SQL
+  ✓ Open file: SUPABASE_SETUP.sql (in your app folder)
+  ✓ Copy ALL the SQL code
+  ✓ Paste into Supabase SQL Editor
+  ✓ Click the "Run" button
+
+STEP 3: Wait for Success
+  ✓ Wait 2-3 seconds
+  ✓ You should see "Success" message
+  ✓ All 3 tables created:
+    • users
+    • contacts
+    • call_history
+
+DONE! ✅
+
+
+📊 WHAT GETS CREATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TABLE: users
+├── id (UUID)
+├── username (text)
+├── name (text)
+├── phone (text)
+├── password_hash (text)
+└── created_at (timestamp)
+
+TABLE: contacts
+├── id (UUID)
+├── user_id (UUID → references users)
+├── name (text)
+├── phone (text)
+└── created_at (timestamp)
+
+TABLE: call_history
+├── id (UUID)
+├── user_id (UUID → references users)
+├── number (text)
+├── direction (in/out/missed)
+├── duration (number)
+└── timestamp (timestamp)
+
+
+⚙️ ENABLE REALTIME (OPTIONAL BUT RECOMMENDED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For real-time incoming call notifications:
+
+  1. Click "Settings" in left sidebar
+  2. Click "Replication"
+  3. Toggle ON for these tables:
+     • call_history
+     • contacts
+     • users
+
+This enables live updates across devices.
+
+
+🧪 TEST YOUR SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After running setup, verify tables exist:
+
+  1. In SQL Editor, click "New Query"
+  2. Paste this:
+     
+     SELECT table_name FROM information_schema.tables 
+     WHERE table_schema = 'public' 
+     AND table_name IN ('users', 'contacts', 'call_history');
+
+  3. Click "Run"
+  4. Should show 3 tables
+
+OR use the SQL Editor in your app:
+  1. Open sql-editor.html
+  2. Click "Users Table" template
+  3. Click "Execute"
+  4. Should see results
+
+
+🔒 SECURITY (OPTIONAL - FOR PRODUCTION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The SQL file includes optional Row-Level Security (RLS) policies.
+These ensure users can only see their own data.
+
+To enable (uncomment the RLS section in SUPABASE_SETUP.sql and re-run).
+
+⚠️  For now, leave RLS disabled for testing.
+
+
+❓ TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Q: "Table already exists" error?
+A: That's fine! The SQL uses IF NOT EXISTS, so it won't recreate.
+   You can safely run it again.
+
+Q: Tables created but my app doesn't work?
+A: Make sure these files are in your app folder:
+   ✓ supabase.js (handles database calls)
+   ✓ app.js (main app logic)
+   ✓ index.html (UI)
+
+Q: Want to add test data?
+A: Uncomment the "TEST DATA" section in SUPABASE_SETUP.sql
+   Then run it to create sample users.
+
+Q: Want to start fresh?
+A: Delete the tables from Supabase Dashboard:
+   Settings → Tables → Delete users (this cascades to contacts/history)
+
+
+📞 NEXT STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Run SUPABASE_SETUP.sql ← YOU ARE HERE
+2. Open index.html in your browser
+3. Click "Create Account" and register
+4. Open sql-editor.html to verify data is saved
+5. Test calling between two browser windows
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Ready? Open SUPABASE_SETUP.sql and copy everything into Supabase SQL Editor! ✨
